@@ -14,9 +14,14 @@
     padding-bottom: 5px;
     background-color: var(--clr1bg);
     border-radius: 8px;
-    
+
 }
 
 .book-list li.loading {
     opacity: 0.7;
+}
+
+.add-btn {
+    display: flex;
+    margin: auto;
 }

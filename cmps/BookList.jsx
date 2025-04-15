@@ -8,7 +8,7 @@ export function BookList({ books, onRemoveBook, loadingClass }) {
     if (!books.length) return <div>No Books To Show...</div>
     return (
         <React.Fragment>
-            <button>
+            <button className="add-btn">
                 <Link to={`/book-index/edit/`}>Add Book</Link>
             </button>
 
