@@ -1,0 +1,123 @@
+.book-details {
+    display: grid;
+    grid-template-areas:
+        "book-img book-title book-title book-title book-title"
+        "book-img book-description book-description book-description book-description"
+        "book-price book-description book-description book-description book-description"
+        "book-author book-description book-description   book-description book-description"
+        "back-button book-publish-date book-page-count categories book-lang";
+    padding: 20px;
+    gap: 5px;
+
+}
+
+.book-details>* {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    gap: 5px;
+    padding: 20px;
+    margin: 0;
+
+}
+
+.book-details .book-title {
+    grid-area: book-title;
+    color: var(--clr1txt);
+    position: relative;
+}
+
+.book-details .book-title h1 {
+    font-size: 2.2em;
+    font-weight: bold;
+    margin: 0;
+    text-decoration: underline;
+}
+
+.book-details .book-title h3 {
+    font-size: 1.5em;
+    margin: 0;
+
+}
+
+.book-details .book-price {
+    grid-area: book-price;
+    color: var(--clr1txt);
+    font-size: 1.2em;
+    text-align: center;
+    width: 100%;
+
+}
+
+.book-details .book-description {
+    grid-area: book-description;
+    color: var(--clr1txt);
+    font-size: 2em;
+
+}
+
+.book-details .book-img {
+    grid-area: book-img;
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.book-details .book-author {
+    grid-area: book-author;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.book-details button {
+    grid-area: back-button;
+
+}
+
+.book-details .book-publish-date {
+    grid-area: book-publish-date;
+
+}
+
+.book-details .book-page-count {
+    grid-area: book-page-count;
+
+}
+
+.book-details .categories {
+    grid-area: categories;
+
+}
+
+.book-details .book-lang {
+    grid-area: book-lang;
+
+}
+
+.book-details .book-on-sale {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 100px;
+
+}
+
+.next-prev-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.red {
+    color: red !important;
+}
+
+.green {
+    color: green !important;
+}
+
+.hidden {
+    opacity: 0;
+}
