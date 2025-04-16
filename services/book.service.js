@@ -10,7 +10,8 @@ export const bookService = {
     remove,
     save,
     getEmptyBook,
-    getDefaultFilter
+    getDefaultFilter,
+    getFilterFromSearchParams
 }
 
 function query(filterBy = {}) {
@@ -47,6 +48,16 @@ function save(book) {
 function getDefaultFilter() {
     return { txt: '', price: '' }
 }
+
+function getFilterFromSearchParams(searchParams) {
+    const txt = searchParams.get('txt') || ''
+    const price = searchParams.get('price') || ''
+    return {
+        txt,
+        price
+    }
+}
+
 
 function getEmptyBook(title = '', description = '', thumbnail = '') {
     return {
