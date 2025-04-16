@@ -1,12 +1,19 @@
+import { AddReview } from "../cmps/AddReview.jsx"
 import { ReviewList } from "../cmps/ReviewList.jsx"
 import { bookService } from "../services/book.service.js"
-const { useParams, useNavigate, Link } = ReactRouterDOM
+import { showErrorMsg } from "../services/event-bus.service.js";
 
+const { useParams, useNavigate, Link } = ReactRouterDOM
 const { useState, useEffect } = React
+
 
 export function BookDetails() {
 
     const [book, setBook] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+    const [isLoadingReview, setIsLoadingReview] = useState(false)
+    const [isShowReviewModal, setIsShowReviewModal] = useState(null)
+
     const params = useParams()
     const navigate = useNavigate()
 
@@ -44,6 +51,35 @@ export function BookDetails() {
         else return ''
     }
 
+    function onToggleReviewModal() {
+        setIsShowReviewModal((prevIsReviewModal) => !prevIsReviewModal)
+    }
+
+    function onSaveReview(reviewToAdd) {
+        setIsLoadingReview(true)
+        return bookService.saveReview(book.id, reviewToAdd)
+            .then((review => {
+                setBook(prevBook => {
+                    const reviews = [review, ...prevBook.reviews]
+                    return { ...prevBook, reviews }
+                })
+            }))
+            .catch(() => showErrorMsg(`Review to ${book.title} Failed!`))
+            .finally(() => setIsLoadingReview(false))
+    }
+
+    function onRemoveReview(reviewId) {
+        setIsLoadingReview(true)
+        bookService.removeReview(book.id, reviewId)
+            .then(() => {
+                setBook(book => {
+                    const filteredReviews = book.reviews.filter(review => review.id !== reviewId)
+                    return { ...book, reviews: filteredReviews }
+                })
+            })
+            .finally(() => setIsLoadingReview(false))
+    }
+
     if (!book) return <div>Loading...</div>
     const { title, subtitle, authors, pageCount, categories, language, publishedDate, description, thumbnail, listPrice: { amount, currencyCode, isOnSale } } = book
     return (
@@ -68,10 +104,23 @@ export function BookDetails() {
                 <button className="btn prev-btn"><Link to={`/book-index/${book.prevBookId}`}>Prev</Link></button>
                 <button className="btn next-btn"><Link to={`/book-index/${book.nextBookId}`}>Next</Link></button>
             </div>
-            <button className="add-review-btn">Add Review</button>
-            <div className="review-list-container">
-                <ReviewList />
-            </div>
+            <hr />
+
+            <button className="add-review-btn" onClick={onToggleReviewModal}>Add Review</button>
+            {isShowReviewModal && (
+                <AddReview
+                    toggleReview={onToggleReviewModal}
+                    saveReview={onSaveReview}
+                />
+            )}
+
+            {!!book.reviews.length && <div className='review-container'>
+                {!isLoadingReview
+                    ? <ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} />
+                    : <div className="loader">Loading reviews..</div>
+                }
+            </div>}
+
         </React.Fragment>
     )
 }

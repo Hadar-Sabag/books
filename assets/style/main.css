@@ -24,4 +24,5 @@
 @import "cmps/book-list.css";
 @import "cmps/book-preview.css";
 @import "cmps/chart.css";
-@import "cmps/dashboard.css";
+@import "cmps/AddReview.css";
+@import "cmps/star-rating.css";

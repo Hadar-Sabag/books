@@ -22,7 +22,6 @@ export function BookIndex() {
         LoadBooks()
     }, [filterBy])
 
-
     function LoadBooks() {
         bookService.query(filterBy)
             .then(books => setBooks(books))

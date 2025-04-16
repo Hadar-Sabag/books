@@ -6,8 +6,6 @@
     align-items: center;
 }
 
-
-
 .book-preview h4 {
     text-transform: capitalize;
     color: var(--gray1);
@@ -15,4 +13,13 @@
 
 .book-preview img {
     max-width: 100px;
+}
+
+.review-container {
+    margin: auto;
+}
+
+.add-review-btn {
+    display: flex;
+    place-self: center;
 }
