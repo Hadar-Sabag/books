@@ -1,0 +1,34 @@
+.chart {
+    display: flex;
+    transform: rotate(180deg);
+    justify-content: center;
+    border: 2px solid lightgray;
+    width: fit-content;
+    margin: auto;
+}
+
+.chart li {
+    display: flex;
+    list-style-type: none;
+    margin: 5px;
+    width: 200px;
+    height: 400px;
+    justify-content: center;
+
+}
+
+.chart li span {
+    display: block;
+    background-color: lightblue;
+    transform: rotate(180deg);
+    text-align: center;
+    width: 50%;
+
+
+}
+
+.dashbored-title {
+    position: absolute;
+    bottom: 96%;
+    transform: rotate(180deg);
+}

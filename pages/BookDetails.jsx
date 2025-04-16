@@ -1,3 +1,4 @@
+import { ReviewList } from "../cmps/ReviewList.jsx"
 import { bookService } from "../services/book.service.js"
 const { useParams, useNavigate, Link } = ReactRouterDOM
 
@@ -66,6 +67,10 @@ export function BookDetails() {
             <div className="next-prev-btns">
                 <button className="btn prev-btn"><Link to={`/book-index/${book.prevBookId}`}>Prev</Link></button>
                 <button className="btn next-btn"><Link to={`/book-index/${book.nextBookId}`}>Next</Link></button>
+            </div>
+            <button className="add-review-btn">Add Review</button>
+            <div className="review-list-container">
+                <ReviewList />
             </div>
         </React.Fragment>
     )

@@ -11,7 +11,8 @@ export const bookService = {
     save,
     getEmptyBook,
     getDefaultFilter,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    getCategoryStats
 }
 
 function query(filterBy = {}) {
@@ -120,3 +121,25 @@ function _setNextPrevBookId(book) {
         return book
     })
 }
+
+function getCategoryStats() {
+    return storageService.query(BOOK_KEY)
+      .then(books => {
+        const bookCountByCategoryMap = _getBookCountByCategoryMap(books)
+        const data = Object.keys(bookCountByCategoryMap)
+          .map(category => ({
+            title: category,
+            value: Math.round((bookCountByCategoryMap[category] / books.length) * 100)
+          }))
+        return data
+      })
+  }
+function _getBookCountByCategoryMap(books) {
+    const bookCountByCategoryMap = books.reduce((map, book) => {
+    if (!map[book.categories]) map[book.categories] = 0
+    map[book.categories]++
+    return map
+    }, {})
+    console.log(bookCountByCategoryMap)
+    return bookCountByCategoryMap
+    }
